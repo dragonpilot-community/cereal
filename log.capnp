@@ -1607,6 +1607,14 @@ struct LiveLongitudinalMpcData {
   cost @10 :Float64;
 }
 
+#dp
+struct LiveTrafficData {
+  speedLimitValid @0 :Bool;
+  speedLimit @1 :Float32;
+  speedAdvisoryValid @2 :Bool;
+  speedAdvisory @3 :Float32;
+}
+
 struct Joystick {
   # convenient for debug and live tuning
   axes @0: List(Float32);
@@ -1695,7 +1703,7 @@ struct LiveParametersData {
   roll @14 :Float32;
 }
 
-struct LiveMapDataDEPRECATED {
+struct LiveMapData {
   speedLimitValid @0 :Bool;
   speedLimit @1 :Float32;
   speedAdvisoryValid @12 :Bool;
@@ -1885,6 +1893,8 @@ struct Event {
     qRoadEncodeData @89 :EncodeData;
 
     dragonConf @92 :Dp.DragonConf;
+    liveTrafficData @93:LiveTrafficData;
+    liveMapData @62 :LiveMapData;
 
     # *********** legacy + deprecated ***********
     model @9 :Legacy.ModelData; # TODO: rename modelV2 and mark this as deprecated
@@ -1900,7 +1910,6 @@ struct Event {
     cellInfoDEPRECATED @28 :List(Legacy.CellInfo);
     wifiScanDEPRECATED @29 :List(Legacy.WifiScan);
     uiNavigationEventDEPRECATED @50 :Legacy.UiNavigationEvent;
-    liveMapDataDEPRECATED @62 :LiveMapDataDEPRECATED;
     gpsPlannerPointsDEPRECATED @40 :Legacy.GPSPlannerPoints;
     gpsPlannerPlanDEPRECATED @41 :Legacy.GPSPlannerPlan;
     applanixRawDEPRECATED @42 :Data;

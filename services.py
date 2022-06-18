@@ -77,6 +77,8 @@ services = {
 
   # dp
   "dragonConf": (False, 1.),
+  "liveMapData": (True, 0.),
+  "liveTrafficData": (True, 1.)
 }
 service_list = {name: Service(new_port(idx), *vals) for  # type: ignore
                 idx, (name, vals) in enumerate(services.items())}
