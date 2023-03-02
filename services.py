@@ -62,10 +62,10 @@ services = {
   "carEvents": (True, 1., 1),
   "carParams": (True, 0.02, 1),
   "roadCameraState": (True, 20., 20),
-  "driverCameraState": (True, 20., 20),
-  "driverEncodeIdx": (False, 20., 1),
+  # "driverCameraState": (True, 20., 20),
+  # "driverEncodeIdx": (False, 20., 1),
   "driverStateV2": (True, 20., 10),
-  "driverMonitoringState": (True, 20., 10),
+  # "driverMonitoringState": (True, 20., 10),
   "wideRoadEncodeIdx": (False, 20., 1),
   "wideRoadCameraState": (True, 20., 20),
   "modelV2": (True, 20., 40),
@@ -90,7 +90,15 @@ services = {
   "qRoadEncodeData": (False, 20.),
 
   # dp
+  # legacy
+  "driverCameraState": (True, 10., 10),
+  "driverEncodeIdx": (False, 10., 1),
+  "driverState": (True, 10, 5),
+  "driverMonitoringState": (True, 10., 5),
+  "sensorEvents": (True, 100., 100),
+  # conf
   "dragonConf": (False, 1.),
+  # mapd
   "liveMapData": (True, 0.),
 }
 service_list = {name: Service(new_port(idx), *vals) for  # type: ignore
