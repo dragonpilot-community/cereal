@@ -13,6 +13,10 @@
 #define VISIONBUF_SYNC_TO_DEVICE 1
 
 enum VisionStreamType {
+  VISION_STREAM_RGB_ROAD,
+  VISION_STREAM_RGB_DRIVER,
+  VISION_STREAM_RGB_WIDE_ROAD,
+
   VISION_STREAM_ROAD,
   VISION_STREAM_DRIVER,
   VISION_STREAM_WIDE_ROAD,
@@ -37,6 +41,8 @@ class VisionBuf {
 
   // YUV
   uint8_t * y = nullptr;
+  uint8_t * u = nullptr;
+  uint8_t * v = nullptr;
   uint8_t * uv = nullptr;
 
   // Visionipc
