@@ -53,6 +53,5 @@ struct DragonConf {
   dpE2EConditionalAdaptFp @45 :Bool;
   dpE2EConditionalAdaptAp @46 :Bool;
   dpE2EConditionalVoacc @47 :Bool;
-  dpE2EConditionalVoacc @48 :Bool;
-  dpLongLeadMovingAlert @49 :Int8;
+  dpLongLeadMovingAlert @48 :Int8;
 }
