@@ -118,6 +118,8 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     #dp
     speedLimitActive @116;
     speedLimitValueChange @117;
+    leadMovingAlertSilent @118;
+    leadMovingAlert @119;
 
     radarCanErrorDEPRECATED @15;
     communityFeatureDisallowedDEPRECATED @62;
