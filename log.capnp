@@ -429,7 +429,7 @@ struct PandaState @0xa7649e2575e4591e {
   alternativeExperience @23 :Int16;
   safetyRxChecksInvalid @32 :Bool;
   #dp: enable torque interceptor
-  torqueInterceptorDetected @33 :Bool;
+  torqueInterceptorDetected @34 :Bool;
 
   voltage @0 :UInt32;
   current @1 :UInt32;
@@ -1244,7 +1244,7 @@ struct GnssMeasurements {
     type @2 :EphemerisType;
     source @3 :EphemerisSource;
   }
-  
+
   struct CorrectedMeasurement {
     constellationId @0 :ConstellationId;
     svId @1 :UInt8;
@@ -1285,7 +1285,7 @@ struct GnssMeasurements {
     glonassIacUltraRapid @2;
     qcom @3;
   }
-  
+
   enum EphemerisSource {
     gnssChip @0;
     internet @1;
@@ -1304,7 +1304,7 @@ struct UbloxGnss {
     glonassEphemeris @5 :GlonassEphemeris;
     satReport @6 :SatReport;
   }
-  
+
   struct SatReport {
     #received time of week in gps time in seconds and gps week
     iTow @0 :UInt32;
@@ -1519,7 +1519,7 @@ struct UbloxGnss {
     p4 @27 :UInt8;
 
     freqNumDEPRECATED @28 :UInt32;
-    
+
     n4 @29 :UInt8;
     nt @30 :UInt16;
     freqNum @31 :Int16;
