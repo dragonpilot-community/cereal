@@ -65,7 +65,6 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     lowBattery @48;
     vehicleModelInvalid @50;
     accFaulted @51;
-    accFaultedTemp @115;
     sensorDataInvalid @52;
     commIssue @53;
     commIssueAvgFreq @109;
@@ -114,6 +113,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     canBusMissing @111;
     controlsdLagging @112;
     resumeBlocked @113;
+    steerTimeLimit @115;
 
     #dp
     speedLimitActive @116;
@@ -660,10 +660,10 @@ struct CarParams {
     adas @19;
     cornerRadar @21;
     hvac @20;
+    parkingAdas @7;  # parking assist system ECU, e.g. Toyota's IPAS, Hyundai's RSPA, etc.
 
     # Toyota only
     dsu @6;
-    apgs @7;
 
     # Honda only
     vsa @13; # Vehicle Stability Assist
@@ -672,10 +672,8 @@ struct CarParams {
     # Chrysler only
     hcp @18;  # Hybrid Control Processor
 
-    # Hyundai only
-    parking @22;  # ADAS parking ECU
-
     debug @17;
+    unused @22;
   }
 
   enum FingerprintSource {
