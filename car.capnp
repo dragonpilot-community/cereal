@@ -222,10 +222,10 @@ struct CarState {
   # dp
   engineRPM @46 :Float32;
   distanceLines @47 :UInt8;
-  right_Blind_spot_D1 @48 :Float32;
-  right_Blind_spot_D2 @49 :Float32;
-  left_Blind_spot_D1 @50 :Float32;
-  left_Blind_spot_D2 @51 :Float32;
+  rightBlindspotD1 @48 :Float32;
+  rightBlindspotD2 @49 :Float32;
+  leftBlindspotD1 @50 :Float32;
+  leftBlindspotD2 @51 :Float32;
   blindspotside @52 :Float32;
 
   struct WheelSpeeds {
