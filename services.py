@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from typing import Optional
+import os
 
+TICI = os.path.isfile('/TICI')
 RESERVED_PORT = 8022  # sshd
 STARTING_PORT = 8001
 
@@ -17,6 +19,7 @@ class Service:
     self.frequency = frequency
     self.decimation = decimation
 
+DCAM_FREQ = 10. if not TICI else 20.
 
 services = {
   # service: (should_log, frequency, qlog decimation (optional))
@@ -62,10 +65,10 @@ services = {
   "carEvents": (True, 1., 1),
   "carParams": (True, 0.02, 1),
   "roadCameraState": (True, 20., 20),
-  "driverCameraState": (True, 20., 20),
-  "driverEncodeIdx": (False, 20., 1),
+  "driverCameraState": (True, DCAM_FREQ, DCAM_FREQ),
+  "driverEncodeIdx": (True, DCAM_FREQ, 1),
   "driverStateV2": (True, 20., 10),
-  "driverMonitoringState": (True, 20., 10),
+  "driverMonitoringState": (True, DCAM_FREQ, DCAM_FREQ / 2),
   "wideRoadEncodeIdx": (False, 20., 1),
   "wideRoadCameraState": (True, 20., 20),
   "modelV2": (True, 20., 40),
@@ -88,6 +91,10 @@ services = {
   "driverEncodeData": (False, 20.),
   "wideRoadEncodeData": (False, 20.),
   "qRoadEncodeData": (False, 20.),
+
+  # legacy
+  "driverState": (True, 10, 5),
+  "sensorEvents": (True, 100., 100),
 }
 service_list = {name: Service(new_port(idx), *vals) for  # type: ignore
                 idx, (name, vals) in enumerate(services.items())}

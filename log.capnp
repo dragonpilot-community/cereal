@@ -139,6 +139,16 @@ struct FrameData {
   targetGreyFraction @22 :Float32;
   exposureValPercent @27 :Float32;
 
+  # Focus
+  lensPos @11 :Int32;
+  lensSag @12 :Float32;
+  lensErr @13 :Float32;
+  lensTruePos @14 :Float32;
+  focusVal @16 :List(Int16);
+  focusConf @17 :List(UInt8);
+  sharpnessScore @18 :List(UInt16);
+  recoverState @19 :Int32;
+
   transform @10 :List(Float32);
 
   image @6 :Data;
@@ -161,14 +171,6 @@ struct FrameData {
 
   globalGainDEPRECATED @5 :Int32;
   androidCaptureResultDEPRECATED @9 :AndroidCaptureResult;
-  lensPosDEPRECATED @11 :Int32;
-  lensSagDEPRECATED @12 :Float32;
-  lensErrDEPRECATED @13 :Float32;
-  lensTruePosDEPRECATED @14 :Float32;
-  focusValDEPRECATED @16 :List(Int16);
-  focusConfDEPRECATED @17 :List(UInt8);
-  sharpnessScoreDEPRECATED @18 :List(UInt16);
-  recoverStateDEPRECATED @19 :Int32;
   struct AndroidCaptureResult {
     sensitivity @0 :Int32;
     frameDuration @1 :Int64;
@@ -388,11 +390,11 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   batteryStatusDEPRECATED @9 :Text;
   batteryVoltageDEPRECATED @16 :Int32;
   batteryTempCDEPRECATED @29 :Float32;
-  batteryPercentDEPRECATED @8 :Int16;
-  batteryCurrentDEPRECATED @15 :Int32;
-  chargingErrorDEPRECATED @17 :Bool;
-  chargingDisabledDEPRECATED @18 :Bool;
-  usbOnlineDEPRECATED @12 :Bool;
+  batteryPercent @8 :Int16;
+  batteryCurrent @15 :Int32;
+  chargingError @17 :Bool;
+  chargingDisabled @18 :Bool;
+  usbOnline @12 :Bool;
 }
 
 struct PandaState @0xa7649e2575e4591e {
@@ -411,7 +413,6 @@ struct PandaState @0xa7649e2575e4591e {
   heartbeatLost @22 :Bool;
   interruptLoad @25 :Float32;
   fanPower @28 :UInt8;
-  fanStallCount @34 :UInt8;
 
   spiChecksumErrorCount @33 :UInt16;
 
@@ -526,7 +527,7 @@ struct PandaState @0xa7649e2575e4591e {
   startedSignalDetectedDEPRECATED @5 :Bool;
   hasGpsDEPRECATED @6 :Bool;
   fanSpeedRpmDEPRECATED @11 :UInt16;
-  usbPowerModeDEPRECATED @12 :PeripheralState.UsbPowerModeDEPRECATED;
+  usbPowerMode @12 :PeripheralState.UsbPowerMode;
   safetyParamDEPRECATED @20 :Int16;
   safetyParam2DEPRECATED @26 :UInt32;
 }
@@ -537,8 +538,8 @@ struct PeripheralState {
   current @2 :UInt32;
   fanSpeedRpm @3 :UInt16;
 
-  usbPowerModeDEPRECATED @4 :UsbPowerModeDEPRECATED;
-  enum UsbPowerModeDEPRECATED @0xa8883583b32c9877 {
+  usbPowerMode @4 :UsbPowerMode;
+  enum UsbPowerMode @0xa8883583b32c9877 {
     none @0;
     client @1;
     cdp @2;
@@ -1110,7 +1111,6 @@ struct LiveLocationKalman {
   deviceStable @22 :Bool = true;
   timeSinceReset @23 :Float64;
   excessiveResets @24 :Bool;
-  timeToFirstFix @25 :Float32;
 
   enum Status {
     uninitialized @0;
@@ -1237,7 +1237,8 @@ struct GnssMeasurements {
     # Different ultra-rapid files:
     nasaUltraRapid @1;
     glonassIacUltraRapid @2;
-    qcom @3;
+    # legacy - eon/c2 need this renamed
+    qcompoly @3;
   }
 
   enum EphemerisSource {
@@ -1839,7 +1840,7 @@ struct DriverStateV2 {
   }
 }
 
-struct DriverStateDEPRECATED @0xb83c6cc593ed0a00 {
+struct DriverState @0xb83c6cc593ed0a00 {
   frameId @0 :UInt32;
   modelExecutionTime @14 :Float32;
   dspExecutionTime @16 :Float32;
@@ -2222,7 +2223,8 @@ struct Event {
     kalmanOdometryDEPRECATED @65 :Legacy.KalmanOdometry;
     uiLayoutStateDEPRECATED @57 :Legacy.UiLayoutState;
     pandaStateDEPRECATED @12 :PandaState;
-    driverStateDEPRECATED @59 :DriverStateDEPRECATED;
-    sensorEventsDEPRECATED @11 :List(SensorEventData);
+    # legacy
+    driverState @59 :DriverState;
+    sensorEvents @11 :List(SensorEventData);
   }
 }
