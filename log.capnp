@@ -430,7 +430,7 @@ struct PandaState @0xa7649e2575e4591e {
   alternativeExperience @23 :Int16;
   safetyRxChecksInvalid @32 :Bool;
   #dp: enable torque interceptor
-  torqueInterceptorDetected @34 :Bool;
+  torqueInterceptorDetected @35 :Bool;
 
   voltage @0 :UInt32;
   current @1 :UInt32;
