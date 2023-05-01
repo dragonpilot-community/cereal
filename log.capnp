@@ -412,6 +412,7 @@ struct PandaState @0xa7649e2575e4591e {
   heartbeatLost @22 :Bool;
   interruptLoad @25 :Float32;
   fanPower @28 :UInt8;
+  fanStallCount @34 :UInt8;
 
   spiChecksumErrorCount @33 :UInt16;
 
@@ -1157,6 +1158,7 @@ struct LiveLocationKalman {
   deviceStable @22 :Bool = true;
   timeSinceReset @23 :Float64;
   excessiveResets @24 :Bool;
+  timeToFirstFix @25 :Float32;
 
   enum Status {
     uninitialized @0;
