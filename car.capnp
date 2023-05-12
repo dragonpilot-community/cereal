@@ -117,11 +117,11 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     vehicleSensorsInvalid @116;
 
     #dp
-    speedLimitActive @116;
-    speedLimitValueChange @117;
-    leadMovingAlertSilent @118;
-    leadMovingAlert @119;
-    manualSteeringRequiredBlinkersOn @120;
+    speedLimitActive @117;
+    speedLimitValueChange @118;
+    leadMovingAlertSilent @119;
+    leadMovingAlert @120;
+    manualSteeringRequiredBlinkersOn @121;
 
     radarCanErrorDEPRECATED @15;
     communityFeatureDisallowedDEPRECATED @62;
