@@ -118,11 +118,11 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     vehicleSensorsInvalid @116;
 
     #dp
-    speedLimitActive @117;
-    speedLimitValueChange @118;
-    leadMovingAlertSilent @119;
-    leadMovingAlert @120;
-    manualSteeringRequiredBlinkersOn @121;
+    speedLimitActive @118;
+    speedLimitValueChange @119;
+    leadMovingAlertSilent @120;
+    leadMovingAlert @121;
+    manualSteeringRequiredBlinkersOn @122;
 
     radarCanErrorDEPRECATED @15;
     communityFeatureDisallowedDEPRECATED @62;
@@ -173,7 +173,7 @@ struct CarState {
   # gas pedal, 0.0-1.0
   gas @3 :Float32;        # this is user pedal only
   gasPressed @4 :Bool;    # this is user pedal only
-  
+
   engineRpm @46 :Float32;
 
   # brake pedal, 0.0-1.0
@@ -224,7 +224,6 @@ struct CarState {
   charging @43 :Bool;
 
   # dp
-  engineRPM @46 :Float32;
   distanceLines @47 :UInt8;
   rightBlindspotD1 @48 :Float32;
   rightBlindspotD2 @49 :Float32;
