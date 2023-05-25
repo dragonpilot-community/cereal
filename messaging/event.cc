@@ -4,7 +4,9 @@
 #include <iostream>
 #include <string>
 #include <exception>
+#ifndef QCOM
 #include <filesystem>
+#endif
 
 #include <sys/eventfd.h>
 #include <sys/mman.h>
@@ -15,6 +17,39 @@
 #include <fcntl.h>
 
 #include "cereal/messaging/event.h"
+
+#ifdef QCOM
+static bool createDirectory(std::string dir, mode_t mode) {
+  auto verify_dir = [](const std::string& dir) -> bool {
+    struct stat st = {};
+    return (stat(dir.c_str(), &st) == 0 && (st.st_mode & S_IFMT) == S_IFDIR);
+  };
+  // remove trailing /'s
+  while (dir.size() > 1 && dir.back() == '/') {
+    dir.pop_back();
+  }
+  // try to mkdir this directory
+  if (mkdir(dir.c_str(), mode) == 0) return true;
+  if (errno == EEXIST) return verify_dir(dir);
+  if (errno != ENOENT) return false;
+
+  // mkdir failed because the parent dir doesn't exist, so try to create it
+  size_t slash = dir.rfind('/');
+  if ((slash == std::string::npos || slash < 1) ||
+      !createDirectory(dir.substr(0, slash), mode)) {
+    return false;
+  }
+
+  // try again
+  if (mkdir(dir.c_str(), mode) == 0) return true;
+  return errno == EEXIST && verify_dir(dir);
+}
+
+static bool create_directories(const std::string& dir, mode_t mode) {
+  if (dir.empty()) return false;
+  return createDirectory(dir, mode);
+}
+#endif
 
 void event_state_shm_mmap(std::string endpoint, std::string identifier, char **shm_mem, std::string *shm_path) {
   const char* op_prefix = std::getenv("OPENPILOT_PREFIX");
@@ -27,7 +62,11 @@ void event_state_shm_mmap(std::string endpoint, std::string identifier, char **s
   if (identifier.size() > 0) {
     full_path += identifier + "/";
   }
+  #ifndef QCOM
   std::filesystem::create_directories(full_path);
+  #else
+  create_directories(full_path, 0664);
+  #endif
   full_path += endpoint;
 
   int shm_fd = open(full_path.c_str(), O_RDWR | O_CREAT, 0664);
