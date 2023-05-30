@@ -3,7 +3,7 @@ $Cxx.namespace("cereal");
 
 using Car = import "car.capnp";
 using Legacy = import "legacy.capnp";
-using Dp = import "dp.capnp";
+using Custom = import "custom.capnp";
 
 @0xf3b1f17e25a4285b;
 
@@ -2202,6 +2202,18 @@ struct Event {
     wideRoadEncodeData @88 :EncodeData;
     qRoadEncodeData @89 :EncodeData;
 
+    # *********** Custom: reserved for forks ***********
+    liveMapData @107 :Custom.LiveMapData;
+    customReserved1 @108 :Custom.CustomReserved1;
+    customReserved2 @109 :Custom.CustomReserved2;
+    customReserved3 @110 :Custom.CustomReserved3;
+    customReserved4 @111 :Custom.CustomReserved4;
+    customReserved5 @112 :Custom.CustomReserved5;
+    customReserved6 @113 :Custom.CustomReserved6;
+    customReserved7 @114 :Custom.CustomReserved7;
+    customReserved8 @115 :Custom.CustomReserved8;
+    customReserved9 @116 :Custom.CustomReserved9;
+
     # *********** legacy + deprecated ***********
     model @9 :Legacy.ModelData; # TODO: rename modelV2 and mark this as deprecated
     liveMpcDEPRECATED @36 :LiveMpcData;
@@ -2216,7 +2228,7 @@ struct Event {
     cellInfoDEPRECATED @28 :List(Legacy.CellInfo);
     wifiScanDEPRECATED @29 :List(Legacy.WifiScan);
     uiNavigationEventDEPRECATED @50 :Legacy.UiNavigationEvent;
-    liveMapData @62 :Dp.LiveMapData;
+    liveMapDataDEPRECATED @62 :LiveMapDataDEPRECATED;
     gpsPlannerPointsDEPRECATED @40 :Legacy.GPSPlannerPoints;
     gpsPlannerPlanDEPRECATED @41 :Legacy.GPSPlannerPlan;
     applanixRawDEPRECATED @42 :Data;
