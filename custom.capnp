@@ -30,17 +30,6 @@ struct LiveMapData @0x81c2f05a394cf4af {
   lastGpsAccuracy @18 :Float32;
   lastGpsBearingAccuracyDeg @19 :Float32;
   longitudinalPlanExtSource @20 :LongitudinalPlanExtSource;
-
-  enum LongitudinalPlanExtSource {
-    cruise @0;
-    lead0 @1;
-    lead1 @2;
-    lead2 @3;
-    e2e @4;
-    turn @5;
-    limit @6;
-    turnlimit @7;
-  }
 }
 
 struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
@@ -62,10 +51,16 @@ struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
   dpE2EIsBlended @13 :Bool;
 
   enum LongitudinalPlanExtSource {
-    turn @0;
-    limit @1;
-    turnlimit @2;
+    cruise @0;
+    lead0 @1;
+    lead1 @2;
+    lead2 @3;
+    e2e @4;
+    turn @5;
+    limit @6;
+    turnlimit @7;
   }
+
   enum SpeedLimitControlState {
     inactive @0; # No speed limit set or not enabled by parameter.
     tempInactive @1; # User wants to ignore speed limit until it changes.
