@@ -43,15 +43,7 @@ struct LiveMapData @0x81c2f05a394cf4af {
   }
 }
 
-struct DragonConf @0xaedffd8f31e7b55d {
-}
-
-struct LateralPlanExt @0xf35cc4560bbf6ec2 {
-  dPathWLinesX @0 :List(Float32);
-  dPathWLinesY @1 :List(Float32);
-}
-
-struct LongitudinalPlanExt @0xda96579883444c35 {
+struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
   visionTurnControllerState @0 :VisionTurnControllerState;
   visionTurnSpeed @1 :Float32;
   speedLimitControlState @2 :SpeedLimitControlState;
@@ -87,6 +79,12 @@ struct LongitudinalPlanExt @0xda96579883444c35 {
     turning @2; # Actively turning. Managing acceleration to provide a roll on turn feeling.
     leaving @3; # Road ahead straightens. Start to allow positive acceleration.
   }
+}
+
+struct CustomReserved2 @0xf35cc4560bbf6ec2 {
+}
+
+struct CustomReserved3 @0xda96579883444c35 {
 }
 
 struct CustomReserved4 @0x80ae746ee2596b11 {
