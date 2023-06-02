@@ -88,6 +88,9 @@ services = {
   "driverEncodeData": (False, 20.),
   "wideRoadEncodeData": (False, 20.),
   "qRoadEncodeData": (False, 20.),
+
+  # mapd
+  "liveMapData": (False, 0.),
 }
 service_list = {name: Service(new_port(idx), *vals) for  # type: ignore
                 idx, (name, vals) in enumerate(services.items())}
