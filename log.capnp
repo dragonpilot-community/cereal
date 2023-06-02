@@ -2203,7 +2203,7 @@ struct Event {
     qRoadEncodeData @89 :EncodeData;
 
     # *********** Custom: reserved for forks ***********
-    LiveMapData @107 :Custom.LiveMapData;
+    liveMapData @107 :Custom.LiveMapData;
     customReserved1 @108 :Custom.CustomReserved1;
     customReserved2 @109 :Custom.CustomReserved2;
     customReserved3 @110 :Custom.CustomReserved3;
