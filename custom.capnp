@@ -29,7 +29,6 @@ struct LiveMapData @0x81c2f05a394cf4af {
   lastGpsBearingDeg @17 :Float32;
   lastGpsAccuracy @18 :Float32;
   lastGpsBearingAccuracyDeg @19 :Float32;
-  longitudinalPlanExtSource @20 :LongitudinalPlanExtSource;
 }
 
 struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
@@ -49,6 +48,7 @@ struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
   turnSign @12 :Int16;
 
   dpE2EIsBlended @13 :Bool;
+  longitudinalPlanExtSource @14 :LongitudinalPlanExtSource;
 
   enum LongitudinalPlanExtSource {
     cruise @0;
