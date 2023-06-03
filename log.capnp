@@ -2205,7 +2205,7 @@ struct Event {
     # *********** Custom: reserved for forks ***********
     liveMapData @107 :Custom.LiveMapData;
     longitudinalPlanExt @108 :Custom.LongitudinalPlanExt;
-    customReserved2 @109 :Custom.CustomReserved2;
+    lateralPlanExt @109 :Custom.LateralPlanExt;
     customReserved3 @110 :Custom.CustomReserved3;
     customReserved4 @111 :Custom.CustomReserved4;
     customReserved5 @112 :Custom.CustomReserved5;

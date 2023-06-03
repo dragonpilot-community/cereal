@@ -76,7 +76,9 @@ struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
   }
 }
 
-struct CustomReserved2 @0xf35cc4560bbf6ec2 {
+struct LateralPlanExt @0xf35cc4560bbf6ec2 {
+  dPathWLinesX @0 :List(Float32);
+  dPathWLinesY @1 :List(Float32);
 }
 
 struct CustomReserved3 @0xda96579883444c35 {
