@@ -972,7 +972,8 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   longitudinalPlanSource @15 :LongitudinalPlanSource;
   processingDelay @29 :Float32;
 
-  # desired speed/accel/jerk over next 2.5s
+  # desired distances/speed/accel/jerk over next 2.5s
+  distances @50 :List(Float32);
   accels @32 :List(Float32);
   speeds @33 :List(Float32);
   jerks @34 :List(Float32);
