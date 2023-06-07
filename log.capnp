@@ -17,7 +17,7 @@ struct Map(Key, Value) {
     value @1 :Value;
   }
 }
-  
+
 enum LongitudinalPersonality {
     aggressive @0;
     standard @1;
@@ -979,7 +979,7 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   processingDelay @29 :Float32;
 
   # desired distances/speed/accel/jerk over next 2.5s
-  distances @50 :List(Float32);
+  distances @51 :List(Float32);
   accels @32 :List(Float32);
   speeds @33 :List(Float32);
   jerks @34 :List(Float32);
@@ -988,22 +988,22 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   personality @36 :LongitudinalPersonality;
 
   #dp
-  visionTurnControllerState @36 :VisionTurnControllerState;
-  visionTurnSpeed @37 :Float32;
-  speedLimitControlState @38 :SpeedLimitControlState;
-  speedLimit @39 :Float32;
-  speedLimitOffset @40 :Float32;
-  distToSpeedLimit @41 :Float32;
-  isMapSpeedLimit @42 :Bool;
-  speedLimitPercOffset @47 :Bool;
-  speedLimitValueOffset @48 :Float32;
+  visionTurnControllerState @37 :VisionTurnControllerState;
+  visionTurnSpeed @38 :Float32;
+  speedLimitControlState @39 :SpeedLimitControlState;
+  speedLimit @40 :Float32;
+  speedLimitOffset @41 :Float32;
+  distToSpeedLimit @42 :Float32;
+  isMapSpeedLimit @43 :Bool;
+  speedLimitPercOffset @44 :Bool;
+  speedLimitValueOffset @45 :Float32;
 
-  distToTurn @43 :Float32;
-  turnSpeed @44 :Float32;
-  turnSpeedControlState @45 :SpeedLimitControlState;
-  turnSign @46 :Int16;
+  distToTurn @46 :Float32;
+  turnSpeed @47 :Float32;
+  turnSpeedControlState @48 :SpeedLimitControlState;
+  turnSign @49 :Int16;
 
-  dpE2EIsBlended @49 :Bool;
+  dpE2EIsBlended @50 :Bool;
 
   enum LongitudinalPlanSource {
     cruise @0;
