@@ -19,10 +19,10 @@ struct Map(Key, Value) {
 }
 
 enum LongitudinalPersonality {
-    aggressive @0;
-    standard @1;
-    relaxed @2;
-  }
+  aggressive @0;
+  standard @1;
+  relaxed @2;
+}
 
 struct InitData {
   kernelArgs @0 :List(Text);
@@ -334,6 +334,7 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   nvmeTempC @35 :List(Float32);
   modemTempC @36 :List(Float32);
   pmicTempC @39 :List(Float32);
+  maxTempC @44 :Float32;  # max of other temps, used to control fan
   thermalZones @38 :List(ThermalZone);
   thermalStatus @14 :ThermalStatus;
 
@@ -1100,6 +1101,13 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   curvatureRates @28 :List(Float32);
 
   solverExecutionTime @30 :Float32;
+  solverCost @32 :Float32;
+  solverState @33 :SolverState;
+
+  struct SolverState {
+    x @0 :List(List(Float32));
+    u @1 :List(Float32);
+  }
 
   enum Desire {
     none @0;
