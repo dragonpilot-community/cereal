@@ -955,7 +955,7 @@ struct EncodeIndex {
     bigBoxHEVCDEPRECATED @2;
     chffrAndroidH264DEPRECATED @3;
     fullLosslessClipDEPRECATED @4;
-    frontDEPRECATED @5;
+    front @5;
 
   }
 }
