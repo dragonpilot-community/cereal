@@ -16,12 +16,12 @@ struct Map(Key, Value) {
     value @1 :Value;
   }
 }
-  
+
 enum LongitudinalPersonality {
-    aggressive @0;
-    standard @1;
-    relaxed @2;
-  }
+  aggressive @0;
+  standard @1;
+  relaxed @2;
+}
 
 struct InitData {
   kernelArgs @0 :List(Text);
@@ -132,7 +132,6 @@ struct FrameData {
   frameIdSensor @25 :UInt32;
 
   frameType @7 :FrameType;
-  frameLength @3 :Int32;
 
   # Timestamps
   timestampEof @2 :UInt64;
@@ -167,6 +166,7 @@ struct FrameData {
     ox03c10 @2;
   }
 
+  frameLengthDEPRECATED @3 :Int32;
   globalGainDEPRECATED @5 :Int32;
   androidCaptureResultDEPRECATED @9 :AndroidCaptureResult;
   lensPosDEPRECATED @11 :Int32;
@@ -334,6 +334,7 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   nvmeTempC @35 :List(Float32);
   modemTempC @36 :List(Float32);
   pmicTempC @39 :List(Float32);
+  maxTempC @44 :Float32;  # max of other temps, used to control fan
   thermalZones @38 :List(ThermalZone);
   thermalStatus @14 :ThermalStatus;
 
@@ -859,9 +860,12 @@ struct ModelDataV2 {
   leadsV3 @18 :List(LeadDataV3);
 
   meta @12 :MetaData;
+  confidence @23: ConfidenceClass;
 
   # Model perceived motion
   temporalPose @21 :Pose;
+
+  navEnabled @22 :Bool;
 
 
   struct LeadDataV2 {
@@ -907,6 +911,12 @@ struct ModelDataV2 {
     steerOverrideProbDEPRECATED @4 :Float32;
   }
 
+  enum ConfidenceClass {
+    red @0;
+    yellow @1;
+    green @2;
+  }
+
   struct DisengagePredictions {
     t @0 :List(Float32);
     brakeDisengageProbs @1 :List(Float32);
@@ -945,13 +955,17 @@ struct EncodeIndex {
   len @9 :UInt32;
 
   enum Type {
-    bigBoxLossless @0;   # rcamera.mkv
-    fullHEVC @1;         # fcamera.hevc
-    bigBoxHEVC @2;       # bcamera.hevc
-    chffrAndroidH264 @3; # acamera
-    fullLosslessClip @4; # prcamera.mkv
-    front @5;            # dcamera.hevc
-    qcameraH264 @6;      # qcamera.ts
+    bigBoxLossless @0;
+    fullHEVC @1;
+    qcameraH264 @6;
+    livestreamH264 @7;
+
+    # deprecated
+    bigBoxHEVCDEPRECATED @2;
+    chffrAndroidH264DEPRECATED @3;
+    fullLosslessClipDEPRECATED @4;
+    front @5;
+
   }
 }
 
@@ -1048,6 +1062,13 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   curvatureRates @28 :List(Float32);
 
   solverExecutionTime @30 :Float32;
+  solverCost @32 :Float32;
+  solverState @33 :SolverState;
+
+  struct SolverState {
+    x @0 :List(List(Float32));
+    u @1 :List(Float32);
+  }
 
   enum Desire {
     none @0;
@@ -1943,6 +1964,7 @@ struct LiveParametersData {
   stiffnessFactorStd @12 :Float32;
   steerRatioStd @13 :Float32;
   roll @14 :Float32;
+  filterState @15 :LiveLocationKalman.Measurement;
 
   yawRateDEPRECATED @7 :Float32;
 }
@@ -2184,6 +2206,10 @@ struct Event {
     wideRoadEncodeIdx @77 :EncodeIndex;
     qRoadEncodeIdx @90 :EncodeIndex;
 
+    livestreamRoadEncodeIdx @117 :EncodeIndex;
+    livestreamWideRoadEncodeIdx @118 :EncodeIndex;
+    livestreamDriverEncodeIdx @119 :EncodeIndex;
+
     # microphone data
     microphone @103 :Microphone;
 
@@ -2213,6 +2239,10 @@ struct Event {
     driverEncodeData @87 :EncodeData;
     wideRoadEncodeData @88 :EncodeData;
     qRoadEncodeData @89 :EncodeData;
+
+    livestreamRoadEncodeData @120 :EncodeData;
+    livestreamWideRoadEncodeData @121 :EncodeData;
+    livestreamDriverEncodeData @122 :EncodeData;
 
     # *********** Custom: reserved for forks ***********
     liveMapData @107 :Custom.LiveMapData;
