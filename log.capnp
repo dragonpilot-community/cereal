@@ -523,6 +523,10 @@ struct PandaState @0xa7649e2575e4591e {
     canfdEnabled @18 :Bool;
     brsEnabled @19 :Bool;
     canfdNonIso @20 :Bool;
+    irq0CallRate @21 :UInt32;
+    irq1CallRate @22 :UInt32;
+    irq2CallRate @23 :UInt32;
+    canCoreResetCnt @24 :UInt32;
 
     enum LecErrorCode {
       noError @0;
@@ -866,6 +870,7 @@ struct ModelDataV2 {
   temporalPose @21 :Pose;
 
   navEnabled @22 :Bool;
+  locationMonoTime @24 :UInt64;
 
 
   struct LeadDataV2 {
@@ -1242,6 +1247,8 @@ struct GnssMeasurements {
     svId @1 :UInt8;
     type @2 :EphemerisType;
     source @3 :EphemerisSource;
+    gpsWeek @4 : UInt16;
+    tow @5 :Float64;
   }
 
   struct CorrectedMeasurement {
@@ -1815,6 +1822,9 @@ struct QcomGnss @0xde94674b07ae51c1 {
     elevationDot @20 :Float32;
     elevationUncertainty @21 :Float32;
     velocityCoeff @22 :List(Float64);
+
+    gpsWeek @23 :UInt16;
+    gpsTow @24 :Float64;
   }
 }
 
@@ -2110,6 +2120,7 @@ struct MapRenderState {
 
 struct NavModelData {
   frameId @0 :UInt32;
+  locationMonoTime @6 :UInt64;
   modelExecutionTime @1 :Float32;
   dspExecutionTime @2 :Float32;
   features @3 :List(Float32);
