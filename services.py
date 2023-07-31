@@ -102,7 +102,9 @@ services = {
   "driverState": (True, 10, 5),
   "sensorEvents": (True, 100., 100),
   # mapd
-  "liveMapData": (True, 0.),
+  "liveMapData": (False, 0.),
+  "longitudinalPlanExt": (False, 20., 5),
+  "lateralPlanExt": (False, 20., 5),
 }
 service_list = {name: Service(new_port(idx), *vals) for  # type: ignore
                 idx, (name, vals) in enumerate(services.items())}
