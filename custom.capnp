@@ -31,10 +31,54 @@ struct LiveMapData @0x81c2f05a394cf4af {
   lastGpsBearingAccuracyDeg @19 :Float32;
 }
 
-struct CustomReserved1 @0xaedffd8f31e7b55d {
+struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
+  visionTurnControllerState @0 :VisionTurnControllerState;
+  visionTurnSpeed @1 :Float32;
+  speedLimitControlState @2 :SpeedLimitControlState;
+  speedLimit @3 :Float32;
+  speedLimitOffset @4 :Float32;
+  distToSpeedLimit @5 :Float32;
+  isMapSpeedLimit @6 :Bool;
+  speedLimitPercOffset @7 :Bool;
+  speedLimitValueOffset @8 :Float32;
+
+  distToTurn @9 :Float32;
+  turnSpeed @10 :Float32;
+  turnSpeedControlState @11 :SpeedLimitControlState;
+  turnSign @12 :Int16;
+
+  dpE2EIsBlended @13 :Bool;
+  longitudinalPlanExtSource @14 :LongitudinalPlanExtSource;
+
+  enum LongitudinalPlanExtSource {
+    cruise @0;
+    lead0 @1;
+    lead1 @2;
+    lead2 @3;
+    e2e @4;
+    turn @5;
+    limit @6;
+    turnlimit @7;
+  }
+
+  enum SpeedLimitControlState {
+    inactive @0; # No speed limit set or not enabled by parameter.
+    tempInactive @1; # User wants to ignore speed limit until it changes.
+    adapting @2; # Reducing speed to match new speed limit.
+    active @3; # Cruising at speed limit.
+  }
+
+  enum VisionTurnControllerState {
+    disabled @0; # No predicted substancial turn on vision range or feature disabled.
+    entering @1; # A subsantial turn is predicted ahead, adapting speed to turn confort levels.
+    turning @2; # Actively turning. Managing acceleration to provide a roll on turn feeling.
+    leaving @3; # Road ahead straightens. Start to allow positive acceleration.
+  }
 }
 
-struct CustomReserved2 @0xf35cc4560bbf6ec2 {
+struct LateralPlanExt @0xf35cc4560bbf6ec2 {
+  dPathWLinesX @0 :List(Float32);
+  dPathWLinesY @1 :List(Float32);
 }
 
 struct CustomReserved3 @0xda96579883444c35 {

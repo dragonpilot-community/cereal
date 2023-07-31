@@ -1023,7 +1023,7 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   aTargetMinDEPRECATED @4 :Float32;
   aTargetMaxDEPRECATED @5 :Float32;
   lateralValidDEPRECATED @0 :Bool;
-  longitudinalValid @2 :Bool;
+  longitudinalValidDEPRECATED @2 :Bool;
   dPolyDEPRECATED @1 :List(Float32);
   laneWidthDEPRECATED @11 :Float32;
   vCurvatureDEPRECATED @21 :Float32;
@@ -2257,8 +2257,8 @@ struct Event {
 
     # *********** Custom: reserved for forks ***********
     liveMapData @107 :Custom.LiveMapData;
-    customReserved1 @108 :Custom.CustomReserved1;
-    customReserved2 @109 :Custom.CustomReserved2;
+    longitudinalPlanExt @108 :Custom.LongitudinalPlanExt;
+    lateralPlanExt @109 :Custom.LateralPlanExt;
     customReserved3 @110 :Custom.CustomReserved3;
     customReserved4 @111 :Custom.CustomReserved4;
     customReserved5 @112 :Custom.CustomReserved5;
