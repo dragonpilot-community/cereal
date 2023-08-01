@@ -97,8 +97,9 @@ services = {
 
   # mapd
   "liveMapData": (False, 0.),
-  "longitudinalPlanExt": (True, 20., 5),
-  "lateralPlanExt": (True, 20., 5),
+  "longitudinalPlanExt": (False, 20., 5),
+  "lateralPlanExt": (False, 20., 5),
+  "controlsStateExt": (False, 100., 10),
 }
 service_list = {name: Service(new_port(idx), *vals) for  # type: ignore
                 idx, (name, vals) in enumerate(services.items())}
