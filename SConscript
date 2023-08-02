@@ -51,7 +51,7 @@ vipc_sources = [
   'visionipc/visionbuf.cc',
 ]
 
-if arch in ["aarch64", "larch64"]:
+if arch in ["earch64", "larch64"]:
   vipc_sources += ['visionipc/visionbuf_ion.cc']
 else:
   vipc_sources += ['visionipc/visionbuf_cl.cc']
@@ -65,7 +65,7 @@ vipc_libs = envCython["LIBS"] + [vipc, messaging_lib, common, "zmq"]
 if arch == "Darwin":
   vipc_frameworks.append('OpenCL')
 else:
-  if arch == "aarch64":
+  if arch == "earch64":
     vipc_libs.append('adreno_utils')
   vipc_libs.append('OpenCL')
 envCython.Program('visionipc/visionipc_pyx.so', 'visionipc/visionipc_pyx.pyx',

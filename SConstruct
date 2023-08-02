@@ -7,6 +7,8 @@ import numpy as np
 arch = subprocess.check_output(["uname", "-m"], encoding='utf8').rstrip()
 if platform.system() == "Darwin":
   arch = "Darwin"
+elif arch == "aarch64" and os.path.isfile('/EON'):
+  arch = "earch64"
 
 common = ''
 
@@ -76,7 +78,7 @@ envCython["CPPPATH"] += [np.get_include()]
 envCython["CCFLAGS"] += ["-Wno-#warnings", "-Wno-shadow", "-Wno-deprecated-declarations"]
 if arch == "Darwin":
   envCython["LINKFLAGS"] = ["-bundle", "-undefined", "dynamic_lookup"]
-elif arch == "aarch64":
+elif arch == "earch64":
   envCython["LINKFLAGS"] = ["-shared"]
   envCython["LIBS"] = [os.path.basename(sysconfig.get_paths()['include'])]
 else:
