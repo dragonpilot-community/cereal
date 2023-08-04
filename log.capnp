@@ -2259,7 +2259,7 @@ struct Event {
     liveMapData @107 :Custom.LiveMapData;
     longitudinalPlanExt @108 :Custom.LongitudinalPlanExt;
     lateralPlanExt @109 :Custom.LateralPlanExt;
-    customReserved3 @110 :Custom.CustomReserved3;
+    controlsStateExt @110 :Custom.ControlsStateExt;
     customReserved4 @111 :Custom.CustomReserved4;
     customReserved5 @112 :Custom.CustomReserved5;
     customReserved6 @113 :Custom.CustomReserved6;
