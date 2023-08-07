@@ -49,6 +49,7 @@ struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
 
   dpE2EIsBlended @13 :Bool;
   longitudinalPlanExtSource @14 :LongitudinalPlanExtSource;
+  de2eIsEnabled @15 :Bool;
 
   enum LongitudinalPlanExtSource {
     cruise @0;
