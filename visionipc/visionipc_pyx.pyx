@@ -31,6 +31,38 @@ cpdef enum VisionStreamType:
   VISION_STREAM_MAP
 
 
+cdef class VisionBuf:
+  @staticmethod
+  cdef create(cppVisionBuf * cbuf):
+    buf = VisionBuf()
+    buf.buf = cbuf
+    return buf
+
+  @property
+  def data(self):
+    return np.asarray(<cnp.uint8_t[:self.buf.len]> self.buf.addr)
+
+  @property
+  def width(self):
+    return self.buf.width
+
+  @property
+  def height(self):
+    return self.buf.height
+
+  @property
+  def stride(self):
+    return self.buf.stride
+
+  @property
+  def uv_offset(self):
+    return self.buf.uv_offset
+
+  @property
+  def rgb(self):
+    return self.buf.rgb
+
+
 cdef class VisionIpcServer:
   cdef cppVisionIpcServer * server
 
@@ -69,8 +101,11 @@ cdef class VisionIpcClient:
   cdef cppVisionIpcClient * client
   cdef VisionIpcBufExtra extra
 
-  def __cinit__(self, string name, VisionStreamType stream, bool conflate):
-    self.client = new cppVisionIpcClient(name, stream, conflate, NULL, NULL)
+  def __cinit__(self, string name, VisionStreamType stream, bool conflate, CLContext context = None):
+    if context:
+      self.client = new cppVisionIpcClient(name, stream, conflate, context.device_id, context.context)
+    else:
+      self.client = new cppVisionIpcClient(name, stream, conflate, NULL, NULL)
 
   def __dealloc__(self):
     del self.client
@@ -123,7 +158,7 @@ cdef class VisionIpcClient:
     buf = self.client.recv(&self.extra, timeout_ms)
     if not buf:
       return None
-    return np.asarray(<cnp.uint8_t[:buf.len]> buf.addr)
+    return VisionBuf.create(buf)
 
   def connect(self, bool blocking):
     return self.client.connect(blocking)
