@@ -1,17 +1,17 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
     -   id: check-ast
     -   id: check-yaml
     -   id: check-executables-have-shebangs
     -   id: check-shebang-scripts-are-executable
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
+    rev: v1.6.1
     hooks:
     -   id: mypy
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.291
+    rev: v0.1.3
     hooks:
     -   id: ruff
 -   repo: local
@@ -39,7 +39,7 @@ repos:
         - --linelength=240
         - --filter=-build,-legal,-readability,-runtime,-whitespace,+build/include_subdir,+build/forward_decl,+build/include_what_you_use,+build/deprecated,+whitespace/comma,+whitespace/line_length,+whitespace/empty_if_body,+whitespace/empty_loop_body,+whitespace/empty_conditional_body,+whitespace/forcolon,+whitespace/parens,+whitespace/semicolon,+whitespace/tab,+readability/braces
 -   repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
+    rev: v2.2.6
     hooks:
     -   id: codespell
         args:
