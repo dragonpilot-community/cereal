@@ -34,7 +34,15 @@ struct LiveMapData @0x81c2f05a394cf4af {
 struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
   dpE2EIsBlended @0 :Bool;
   de2eIsEnabled @1 :Bool;
+  visionTurnControllerState @2 :VisionTurnControllerState;
+  visionTurnSpeed @3 :Float32;
 
+  enum VisionTurnControllerState {
+    disabled @0; # No predicted substancial turn on vision range or feature disabled.
+    entering @1; # A subsantial turn is predicted ahead, adapting speed to turn confort levels.
+    turning @2; # Actively turning. Managing acceleration to provide a roll on turn feeling.
+    leaving @3; # Road ahead straightens. Start to allow positive acceleration.
+  }
 }
 
 struct LateralPlanExt @0xf35cc4560bbf6ec2 {
