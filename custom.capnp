@@ -36,6 +36,16 @@ struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
   de2eIsEnabled @1 :Bool;
   visionTurnControllerState @2 :VisionTurnControllerState;
   visionTurnSpeed @3 :Float32;
+  longitudinalPlanExtSource @4 :LongitudinalPlanExtSource;
+
+  enum LongitudinalPlanExtSource {
+    cruise @0;
+    lead0 @1;
+    lead1 @2;
+    lead2 @3;
+    e2e @4;
+    turn @5;
+  }
 
   enum VisionTurnControllerState {
     disabled @0; # No predicted substancial turn on vision range or feature disabled.
