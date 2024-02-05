@@ -46,6 +46,8 @@ struct InitData {
 
   commands @19 :Map(Text, Data);
 
+  wallTimeNanos @20 :UInt64;
+
   enum DeviceType {
     unknown @0;
     neo @1;
@@ -128,8 +130,9 @@ struct InitData {
 
 struct FrameData {
   frameId @0 :UInt32;
-  encodeId @1 :UInt32; # DEPRECATED
   frameIdSensor @25 :UInt32;
+  requestId @28 :UInt32;
+  encodeId @1 :UInt32;
 
   frameType @7 :FrameType;
 
@@ -164,6 +167,7 @@ struct FrameData {
     unknown @0;
     ar0231 @1;
     ox03c10 @2;
+    os04c10 @3;
   }
 
   frameLengthDEPRECATED @3 :Int32;
@@ -296,6 +300,29 @@ struct GpsLocationData {
   }
 }
 
+enum Desire {
+  none @0;
+  turnLeft @1;
+  turnRight @2;
+  laneChangeLeft @3;
+  laneChangeRight @4;
+  keepLeft @5;
+  keepRight @6;
+}
+
+enum LaneChangeState {
+  off @0;
+  preLaneChange @1;
+  laneChangeStarting @2;
+  laneChangeFinishing @3;
+}
+
+enum LaneChangeDirection {
+  none @0;
+  left @1;
+  right @2;
+}
+
 struct CanData {
   address @0 :UInt32;
   busTime @1 :UInt16;
@@ -398,6 +425,7 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   batteryStatusDEPRECATED @9 :Text;
   batteryVoltageDEPRECATED @16 :Int32;
   batteryTempCDEPRECATED @29 :Float32;
+  # rick - we need these for EON/C2
   batteryPercent @8 :Int16;
   batteryCurrent @15 :Int32;
   chargingError @17 :Bool;
@@ -407,7 +435,6 @@ struct DeviceState @0xa4d8b5af2aa492eb {
 
 struct PandaState @0xa7649e2575e4591e {
   ignitionLine @2 :Bool;
-  gasInterceptorDetected @4 :Bool;
   rxBufferOverflow @7 :UInt32;
   txBufferOverflow @8 :UInt32;
   gmlanSendErrs @9 :UInt32;
@@ -493,6 +520,7 @@ struct PandaState @0xa7649e2575e4591e {
     redPanda @7;
     redPandaV2 @8;
     tres @9;
+    cuatro @10;
   }
 
   enum HarnessStatus {
@@ -540,9 +568,11 @@ struct PandaState @0xa7649e2575e4591e {
     }
   }
 
+  gasInterceptorDetectedDEPRECATED @4 :Bool;
   startedSignalDetectedDEPRECATED @5 :Bool;
   hasGpsDEPRECATED @6 :Bool;
   fanSpeedRpmDEPRECATED @11 :UInt16;
+  # rick - we need this for old pandas
   usbPowerMode @12 :PeripheralState.UsbPowerMode;
   safetyParamDEPRECATED @20 :Int16;
   safetyParam2DEPRECATED @26 :UInt32;
@@ -554,6 +584,7 @@ struct PeripheralState {
   current @2 :UInt32;
   fanSpeedRpm @3 :UInt16;
 
+  # rick - we need this for EON/C2
   usbPowerMode @4 :UsbPowerMode;
   enum UsbPowerMode @0xa8883583b32c9877 {
     none @0;
@@ -665,7 +696,6 @@ struct ControlsState @0x97ff69c53601abf1 {
   aTarget @35 :Float32;
   curvature @37 :Float32;  # path curvature from vehicle model
   desiredCurvature @61 :Float32;  # lag adjusted curvatures used by lateral controllers
-  desiredCurvatureRate @62 :Float32;
   forceDecel @51 :Bool;
 
   # UI alerts
@@ -687,9 +717,10 @@ struct ControlsState @0x97ff69c53601abf1 {
     angleState @58 :LateralAngleState;
     debugState @59 :LateralDebugState;
     torqueState @60 :LateralTorqueState;
-    curvatureState @65 :LateralCurvatureState;
 
-    lqrStateDEPRECATED @55 :LateralLQRState;
+    curvatureStateDEPRECATED @65 :LateralCurvatureState;
+    # rick - added back
+    lqrState @55 :LateralLQRState;
   }
 
   enum OpenpilotState @0xdbe58b96d2d1ac61 {
@@ -823,6 +854,7 @@ struct ControlsState @0x97ff69c53601abf1 {
   steerOverrideDEPRECATED @20 :Bool;
   steeringAngleDesiredDegDEPRECATED @29 :Float32;
   canMonoTimesDEPRECATED @21 :List(UInt64);
+  desiredCurvatureRateDEPRECATED @62 :Float32;
 }
 
 # All SI units and in device frame
@@ -873,6 +905,9 @@ struct ModelDataV2 {
   navEnabled @22 :Bool;
   locationMonoTime @24 :UInt64;
 
+  # e2e lateral planner
+  lateralPlannerSolutionDEPRECATED @25: LateralPlannerSolution;
+  action @26: Action;
 
   struct LeadDataV2 {
     prob @0 :Float32; # probability that car is your lead at time t
@@ -910,6 +945,9 @@ struct ModelDataV2 {
     desireState @5 :List(Float32);
     disengagePredictions @6 :DisengagePredictions;
     hardBrakePredicted @7 :Bool;
+    laneChangeState @8 :LaneChangeState;
+    laneChangeDirection @9 :LaneChangeDirection;
+
 
     # deprecated
     brakeDisengageProbDEPRECATED @2 :Float32;
@@ -938,6 +976,21 @@ struct ModelDataV2 {
     rot @1 :List(Float32); # rad/s in device frame
     transStd @2 :List(Float32); # std m/s in device frame
     rotStd @3 :List(Float32); # std rad/s in device frame
+  }
+
+  struct LateralPlannerSolution {
+    x @0 :List(Float32);
+    y @1 :List(Float32);
+    yaw @2 :List(Float32);
+    yawRate @3 :List(Float32);
+    xStd @4 :List(Float32);
+    yStd @5 :List(Float32);
+    yawStd @6 :List(Float32);
+    yawRateStd @7 :List(Float32);
+  }
+
+  struct Action {
+    desiredCurvature @0 :Float32;
   }
 }
 
@@ -970,6 +1023,7 @@ struct EncodeIndex {
     bigBoxHEVCDEPRECATED @2;
     chffrAndroidH264DEPRECATED @3;
     fullLosslessClipDEPRECATED @4;
+    # rick - revert for old camerad
     front @5;
 
   }
@@ -2153,6 +2207,8 @@ struct EncodeData {
   data @1 :Data;
   header @2 :Data;
   unixTimestampNanos @3 :UInt64;
+  width @4 :UInt32;
+  height @5 :UInt32;
 }
 
 struct UserFlag {
@@ -2200,7 +2256,6 @@ struct Event {
     carState @22 :Car.CarState;
     carControl @23 :Car.CarControl;
     longitudinalPlan @24 :LongitudinalPlan;
-    lateralPlan @64 :LateralPlan;
     uiPlan @106 :UiPlan;
     ubloxGnss @34 :UbloxGnss;
     ubloxRaw @39 :Data;
@@ -2212,6 +2267,8 @@ struct Event {
     liveTorqueParameters @94 :LiveTorqueParametersData;
     cameraOdometry @63 :CameraOdometry;
     thumbnail @66: Thumbnail;
+    # rick - keep old name
+    # onroadEvents @68: List(Car.CarEvent);
     carEvents @68: List(Car.CarEvent);
     carParams @69: Car.CarParams;
     driverMonitoringState @71: DriverMonitoringState;
@@ -2267,6 +2324,10 @@ struct Event {
     livestreamWideRoadEncodeData @121 :EncodeData;
     livestreamDriverEncodeData @122 :EncodeData;
 
+    customReservedRawData0 @124 :Data;
+    customReservedRawData1 @125 :Data;
+    customReservedRawData2 @126 :Data;
+
     # *********** Custom: reserved for forks ***********
     liveMapData @107 :Custom.LiveMapData;
     longitudinalPlanExt @108 :Custom.LongitudinalPlanExt;
@@ -2315,8 +2376,9 @@ struct Event {
     kalmanOdometryDEPRECATED @65 :Legacy.KalmanOdometry;
     uiLayoutStateDEPRECATED @57 :Legacy.UiLayoutState;
     pandaStateDEPRECATED @12 :PandaState;
-    # legacy
+    # rick - legacy
     driverState @59 :DriverState;
     sensorEvents @11 :List(SensorEventData);
+    lateralPlan @64 :LateralPlan;
   }
 }
