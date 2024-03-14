@@ -335,6 +335,8 @@ struct CanData {
 }
 
 struct DeviceState @0xa4d8b5af2aa492eb {
+  deviceType @45 :InitData.DeviceType;
+
   networkType @22 :NetworkType;
   networkInfo @31 :NetworkInfo;
   networkStrength @24 :NetworkStrength;
@@ -685,6 +687,7 @@ struct ControlsState @0x97ff69c53601abf1 {
   active @36 :Bool;
 
   experimentalMode @64 :Bool;
+  personality @66 :LongitudinalPersonality;
 
   longControlState @30 :Car.CarControl.Actuators.LongControlState;
   vPid @2 :Float32;
@@ -1051,7 +1054,6 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   jerks @34 :List(Float32);
 
   solverExecutionTime @35 :Float32;
-  personality @36 :LongitudinalPersonality;
 
   enum LongitudinalPlanSource {
     cruise @0;
@@ -1089,6 +1091,7 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   eventsDEPRECATED @13 :List(Car.CarEvent);
   gpsTrajectoryDEPRECATED @12 :GpsTrajectory;
   gpsPlannerActiveDEPRECATED @19 :Bool;
+  personalityDEPRECATED @36 :LongitudinalPersonality;
 
   struct GpsTrajectory {
     x @0 :List(Float32);
