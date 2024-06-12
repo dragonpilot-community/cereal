@@ -13,7 +13,9 @@ struct ControlsStateExt @0x81c2f05a394cf4af {
   alkaEnabled @1 :Bool;
 }
 
-struct CustomReserved1 @0xaedffd8f31e7b55d {
+struct LongitudinalPlanExt @0xaedffd8f31e7b55d {
+  de2eIsBlended @0 :Bool;
+  de2eIsEnabled @1 :Bool;
 }
 
 struct CustomReserved2 @0xf35cc4560bbf6ec2 {
